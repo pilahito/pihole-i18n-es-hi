@@ -15,8 +15,13 @@ Several ways to generate / update Spanish and Hindi translations without interne
 ## Option 1: Argos Translate (recommended starting point)
 ```bash
 pip install argostranslate
-python tools/translate.py --install
+python tools/install_argos.py
 python tools/translate.py
+```
+
+**Real-time demo:**
+```bash
+python tools/realtime_demo.py
 ```
 
 ## Option 2: CTranslate2 + quantized models (lowest RAM)
@@ -26,7 +31,10 @@ See `tools/translate_ctranslate2.py` and `docs/ctranslate2-setup.md`
 See `docs/libretranslate.md`
 
 ## Option 4: Direct Marian / OPUS-MT
-You can use the same models as CTranslate2 but via the `opus-mt` or `transformers` libraries if preferred.
+See **[docs/marian-nmt.md](marian-nmt.md)** for models, conversion and usage examples.
+
+## Example outputs
+See **[examples/output-examples.md](../examples/output-examples.md)**
 
 ## Workflow recommendation
 1. Generate with Argos or CTranslate2

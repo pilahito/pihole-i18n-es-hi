@@ -16,9 +16,12 @@ scripts/lua/locales/{en,es,hi}.json
 tools/translate.py                  # Argos Translate
 tools/translate_ctranslate2.py      # CTranslate2 (int8)
 tools/install_argos.py
+tools/realtime_demo.py              # Real-time interactive demo
 docs/translation-options.md         # Comparison of all methods
+docs/marian-nmt.md                 # Marian NMT / OPUS-MT guide
 docs/ctranslate2-setup.md
 docs/libretranslate.md
+examples/output-examples.md         # Sample translations
 requirements.txt
 ```
 
@@ -38,11 +41,19 @@ python tools/install_argos.py
 python tools/translate.py
 ```
 
+### Real-time interactive demo
+```bash
+python tools/realtime_demo.py
+```
+
+### Marian NMT / OPUS-MT
+See [docs/marian-nmt.md](docs/marian-nmt.md)
+
 ### Lowest RAM (CTranslate2)
 See [docs/ctranslate2-setup.md](docs/ctranslate2-setup.md)
 
-### LibreTranslate local
-See [docs/libretranslate.md](docs/libretranslate.md)
+### Example outputs
+See [examples/output-examples.md](examples/output-examples.md)
 
 ---
 

@@ -1,59 +1,59 @@
 # Pi-hole i18n Mod with Docker
 
-## Install (Docker)
+The main scripts (`install.sh` and `update.sh`) **automatically detect** if Pi-hole is running in Docker.
+
+## Install (works for Docker and bare metal)
 
 ```bash
 git clone https://github.com/pilahito/pihole-i18n-es-hi.git
 cd pihole-i18n-es-hi
-chmod +x install-docker.sh
-
-# Default container name is "pihole"
-sudo ./install-docker.sh
-
-# Or if your container has another name:
-PIHOLE_CONTAINER=my-pihole sudo ./install-docker.sh
+chmod +x install.sh
+sudo ./install.sh
 ```
 
-## Update (Docker)
+If your container is not named `pihole`:
 
 ```bash
-sudo ./update-docker.sh
-
-# Or with custom container name:
-PIHOLE_CONTAINER=my-pihole sudo ./update-docker.sh
+PIHOLE_CONTAINER=my-pihole sudo ./install.sh
 ```
 
-## Recommended: Mount as volume (best persistence)
+## Update
 
-In your `docker-compose.yml` add:
+```bash
+sudo ./update.sh
+
+# or with custom container name
+PIHOLE_CONTAINER=my-pihole sudo ./update.sh
+```
+
+## How it works
+
+1. Always keeps a copy on the host in `/opt/pihole-i18n`
+2. If it finds a running Docker container named `pihole` (or the name you set), it copies the files inside the container
+3. If no container is found, it uses symlinks on the host (classic installation)
+
+## Recommended for long-term Docker use
+
+Mount the mod directory as a volume in your `docker-compose.yml` so it survives container recreation:
 
 ```yaml
 services:
   pihole:
     volumes:
       - /opt/pihole-i18n:/opt/pihole-i18n:ro
-      # Then create symlinks inside the container or copy on start
 ```
 
-Alternatively, after install you can re-run `install-docker.sh` whenever the container is recreated.
+Then you only need to re-create the symlinks or copy once after recreating the container.
 
-## Automatic updates (cron on the host)
+## Automatic updates (cron)
 
 ```bash
-# Copy updater
-sudo cp update-docker.sh /opt/pihole-i18n/update-docker.sh
-sudo chmod +x /opt/pihole-i18n/update-docker.sh
+sudo cp update.sh /opt/pihole-i18n/update.sh
+sudo chmod +x /opt/pihole-i18n/update.sh
 
-# Add to crontab
 sudo crontab -e
 ```
 
 ```cron
-0 3 * * * PIHOLE_CONTAINER=pihole /opt/pihole-i18n/update-docker.sh >> /var/log/pihole-i18n-update.log 2>&1
+0 3 * * * PIHOLE_CONTAINER=pihole /opt/pihole-i18n/update.sh >> /var/log/pihole-i18n-update.log 2>&1
 ```
-
-## Notes
-
-- Files are copied into the running container.
-- If you recreate the container, re-run the installer or use a volume mount.
-- Host copy is always kept in `/opt/pihole-i18n`.

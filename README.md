@@ -8,6 +8,7 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - Cookie-based language persistence
 - Fallback to English
 - Multiple **100% offline** auto-translation options
+- **Persistent mod installer** (survives Pi-hole updates)
 
 ## Structure
 ```
@@ -21,9 +22,25 @@ docs/translation-options.md         # Comparison of all methods
 docs/marian-nmt.md                 # Marian NMT / OPUS-MT guide
 docs/ctranslate2-setup.md
 docs/libretranslate.md
+docs/install-as-mod.md            # Persistent installation guide
 examples/output-examples.md         # Sample translations
+install.sh                          # Mod installer
+uninstall.sh
 requirements.txt
 ```
+
+## Install as a persistent mod (recommended)
+
+Survives Pi-hole updates:
+
+```bash
+git clone https://github.com/pilahito/pihole-i18n-es-hi.git
+cd pihole-i18n-es-hi
+chmod +x install.sh
+sudo ./install.sh
+```
+
+See **[docs/install-as-mod.md](docs/install-as-mod.md)** for details.
 
 ## Usage in templates
 ```lua

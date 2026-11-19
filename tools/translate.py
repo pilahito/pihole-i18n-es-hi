@@ -1,36 +1,65 @@
 #!/usr/bin/env python3
 """
-Auto-translate missing keys in Pi-hole locale files using local LibreTranslate.
+Auto-translate missing keys in Pi-hole locale files using Argos Translate (100% offline).
+
+Requirements:
+    pip install argostranslate
+
+First time only (needs internet once to download models):
+    python tools/translate.py --install
 """
 
+import argparse
 import json
-import requests
 from pathlib import Path
+
+import argostranslate.package
+import argostranslate.translate
 
 LOCALES_DIR = Path("scripts/lua/locales")
 SOURCE = "en.json"
 TARGETS = ["es", "hi"]
 
-# Change this to your local LibreTranslate instance
-API_URL = "http://localhost:5000/translate"
+def install_models():
+    print("Updating package index and installing models (requires internet once)...")
+    argostranslate.package.update_package_index()
+    available = argostranslate.package.get_available_packages()
+    for target in TARGETS:
+        pkg = next((p for p in available if p.from_code == "en" and p.to_code == target), None)
+        if pkg:
+            print(f"Installing en → {target}")
+            argostranslate.package.install_from_path(pkg.download())
+        else:
+            print(f"No package found for en → {target}")
+    print("Models installed.")
+
+def get_translator(target_code):
+    installed = argostranslate.translate.get_installed_languages()
+    from_lang = next((l for l in installed if l.code == "en"), None)
+    to_lang = next((l for l in installed if l.code == target_code), None)
+    if not from_lang or not to_lang:
+        raise RuntimeError(f"Language pair en→{target_code} not installed. Run with --install first.")
+    return from_lang.get_translation(to_lang)
 
 def translate(text, target):
-    if not text or not text.strip():
+    if not text or not str(text).strip():
         return text
     try:
-        r = requests.post(API_URL, json={
-            "q": text,
-            "source": "en",
-            "target": target,
-            "format": "text"
-        }, timeout=20)
-        r.raise_for_status()
-        return r.json().get("translatedText", text)
+        translator = get_translator(target)
+        return translator.translate(text)
     except Exception as e:
-        print(f"  Error: {e}")
+        print(f"  Error translating to {target}: {e}")
         return text
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--install", action="store_true", help="Download and install language models")
+    args = parser.parse_args()
+
+    if args.install:
+        install_models()
+        return
+
     source_path = LOCALES_DIR / SOURCE
     with open(source_path, encoding="utf-8") as f:
         source = json.load(f)

@@ -1,0 +1,13 @@
+{
+  "dashboard": "डैशबोर्ड",
+  "settings": "सेटिंग्स",
+  "query_log": "क्वेरी लॉग",
+  "whitelist": "व्हाइटलिस्ट",
+  "blacklist": "ब्लैकलिस्ट",
+  "status": "स्थिति",
+  "enable": "सक्षम करें",
+  "disable": "अक्षम करें",
+  "save": "सहेजें",
+  "cancel": "रद्द करें",
+  "language": "भाषा"
+}

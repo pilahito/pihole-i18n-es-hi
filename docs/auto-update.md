@@ -1,48 +1,54 @@
 # Automatic Updates for Pi-hole i18n Mod
 
+## One-command setup (recommended)
+
+```bash
+cd pihole-i18n-es-hi
+chmod +x setup-auto-update.sh
+sudo ./setup-auto-update.sh
+```
+
+This will:
+- Copy `update.sh` to `/opt/pihole-i18n/`
+- Add a daily cron job (3:00 AM)
+- Log output to `/var/log/pihole-i18n-update.log`
+
 ## Manual update
 
 ```bash
-cd /path/to/pihole-i18n-es-hi
 sudo ./update.sh
 ```
 
-Or from anywhere (if the script is in PATH):
+## Check or remove automatic updates
 
 ```bash
-sudo /opt/pihole-i18n/update.sh
+# See current cron jobs
+crontab -l
+
+# Disable automatic updates
+crontab -l | grep -v pihole-i18n | crontab -
 ```
 
-## Automatic updates with cron (recommended)
+## Custom schedule
 
-Edit the crontab:
+Edit the crontab manually:
 
 ```bash
-sudo crontab -e
+crontab -e
 ```
 
-Add one of these lines:
+Examples:
 
 ```cron
-# Update every day at 3:00 AM
+# Every day at 3:00 AM
 0 3 * * * /opt/pihole-i18n/update.sh >> /var/log/pihole-i18n-update.log 2>&1
 
-# Update every Sunday at 4:00 AM
+# Every Sunday at 4:00 AM
 0 4 * * 0 /opt/pihole-i18n/update.sh >> /var/log/pihole-i18n-update.log 2>&1
-```
-
-## Install the update script permanently
-
-After running `install.sh`, you can also copy the updater:
-
-```bash
-sudo cp update.sh /opt/pihole-i18n/update.sh
-sudo chmod +x /opt/pihole-i18n/update.sh
 ```
 
 ## Notes
 
-- The update only refreshes the locale files and `i18n.lp`.
-- Symlinks created by `install.sh` remain valid.
-- Check `/var/log/pihole-i18n-update.log` if something fails.
-- You can disable automatic updates by removing the cron line.
+- Works with both bare metal and Docker (the update script auto-detects Docker).
+- Only updates the locale files and `i18n.lp`.
+- Safe to run multiple times.

@@ -9,30 +9,24 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - Fallback to English
 - Multiple **100% offline** auto-translation options
 - **Persistent mod installer** (survives Pi-hole updates)
+- **Docker support**
 
 ## Structure
 ```
 scripts/lua/i18n.lp
 scripts/lua/locales/{en,es,hi}.json
-tools/translate.py                  # Argos Translate
-tools/translate_ctranslate2.py      # CTranslate2 (int8)
-tools/install_argos.py
-tools/realtime_demo.py              # Real-time interactive demo
-docs/translation-options.md         # Comparison of all methods
-docs/marian-nmt.md                 # Marian NMT / OPUS-MT guide
-docs/ctranslate2-setup.md
-docs/libretranslate.md
-docs/install-as-mod.md            # Persistent installation guide
-examples/output-examples.md         # Sample translations
-install.sh                          # Mod installer
-uninstall.sh
-requirements.txt
+tools/...
+docs/docker.md                      # Docker guide
+docs/install-as-mod.md
+docs/auto-update.md
+install.sh                          # Bare metal / VM
+install-docker.sh                   # Docker
+update.sh / update-docker.sh
 ```
 
-## Install as a persistent mod (recommended)
+## Install
 
-Survives Pi-hole updates:
-
+### Bare metal / VM
 ```bash
 git clone https://github.com/pilahito/pihole-i18n-es-hi.git
 cd pihole-i18n-es-hi
@@ -40,7 +34,16 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
-See **[docs/install-as-mod.md](docs/install-as-mod.md)** for details.
+### Docker
+```bash
+git clone https://github.com/pilahito/pihole-i18n-es-hi.git
+cd pihole-i18n-es-hi
+chmod +x install-docker.sh
+sudo ./install-docker.sh
+# or: PIHOLE_CONTAINER=my-pihole sudo ./install-docker.sh
+```
+
+See **[docs/docker.md](docs/docker.md)** for full Docker instructions and automatic updates.
 
 ## Usage in templates
 ```lua
@@ -49,28 +52,7 @@ See **[docs/install-as-mod.md](docs/install-as-mod.md)** for details.
 
 ## Offline auto-translation options
 
-See **[docs/translation-options.md](docs/translation-options.md)** for a full comparison.
-
-### Quick start (Argos – simplest)
-```bash
-pip install -r requirements.txt
-python tools/install_argos.py
-python tools/translate.py
-```
-
-### Real-time interactive demo
-```bash
-python tools/realtime_demo.py
-```
-
-### Marian NMT / OPUS-MT
-See [docs/marian-nmt.md](docs/marian-nmt.md)
-
-### Lowest RAM (CTranslate2)
-See [docs/ctranslate2-setup.md](docs/ctranslate2-setup.md)
-
-### Example outputs
-See [examples/output-examples.md](examples/output-examples.md)
+See **[docs/translation-options.md](docs/translation-options.md)**.
 
 ---
 

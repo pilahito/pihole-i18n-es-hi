@@ -10,6 +10,7 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - Multiple **100% offline** auto-translation options
 - **Persistent mod installer** (survives Pi-hole updates)
 - **Automatic Docker detection**
+- **Pi-hole CLI wrapper** for Docker
 
 ## Install (works on bare metal **and** Docker)
 
@@ -26,7 +27,16 @@ If your Docker container is not named `pihole`:
 PIHOLE_CONTAINER=my-pihole sudo ./install.sh
 ```
 
-The script automatically detects whether Pi-hole is running in Docker or on the host.
+## Use Pi-hole commands from the host (Docker)
+
+```bash
+chmod +x pihole-docker
+./pihole-docker -c
+./pihole-docker -g
+./pihole-docker status
+```
+
+Or create a permanent alias (see [docs/pihole-commands-docker.md](docs/pihole-commands-docker.md)).
 
 ## Update
 
@@ -34,7 +44,7 @@ The script automatically detects whether Pi-hole is running in Docker or on the 
 sudo ./update.sh
 ```
 
-See **[docs/docker.md](docs/docker.md)** for more Docker details and automatic updates with cron.
+See **[docs/docker.md](docs/docker.md)** for more details.
 
 ## Usage in templates
 ```lua

@@ -1,0 +1,11 @@
+# Core translation options
+argostranslate
+ctranslate2
+sentencepiece
+
+# Optional (LibreTranslate server)
+# requests
+
+# For model conversion
+# transformers
+# torch

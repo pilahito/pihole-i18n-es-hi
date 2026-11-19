@@ -9,24 +9,10 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - Fallback to English
 - Multiple **100% offline** auto-translation options
 - **Persistent mod installer** (survives Pi-hole updates)
-- **Docker support**
+- **Automatic Docker detection**
 
-## Structure
-```
-scripts/lua/i18n.lp
-scripts/lua/locales/{en,es,hi}.json
-tools/...
-docs/docker.md                      # Docker guide
-docs/install-as-mod.md
-docs/auto-update.md
-install.sh                          # Bare metal / VM
-install-docker.sh                   # Docker
-update.sh / update-docker.sh
-```
+## Install (works on bare metal **and** Docker)
 
-## Install
-
-### Bare metal / VM
 ```bash
 git clone https://github.com/pilahito/pihole-i18n-es-hi.git
 cd pihole-i18n-es-hi
@@ -34,16 +20,21 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
-### Docker
+If your Docker container is not named `pihole`:
+
 ```bash
-git clone https://github.com/pilahito/pihole-i18n-es-hi.git
-cd pihole-i18n-es-hi
-chmod +x install-docker.sh
-sudo ./install-docker.sh
-# or: PIHOLE_CONTAINER=my-pihole sudo ./install-docker.sh
+PIHOLE_CONTAINER=my-pihole sudo ./install.sh
 ```
 
-See **[docs/docker.md](docs/docker.md)** for full Docker instructions and automatic updates.
+The script automatically detects whether Pi-hole is running in Docker or on the host.
+
+## Update
+
+```bash
+sudo ./update.sh
+```
+
+See **[docs/docker.md](docs/docker.md)** for more Docker details and automatic updates with cron.
 
 ## Usage in templates
 ```lua

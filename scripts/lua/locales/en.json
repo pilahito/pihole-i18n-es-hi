@@ -1,0 +1,13 @@
+{
+  "dashboard": "Dashboard",
+  "settings": "Settings",
+  "query_log": "Query Log",
+  "whitelist": "Whitelist",
+  "blacklist": "Blacklist",
+  "status": "Status",
+  "enable": "Enable",
+  "disable": "Disable",
+  "save": "Save",
+  "cancel": "Cancel",
+  "language": "Language"
+}

@@ -7,7 +7,7 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - Lua helper (`t(key)` function)
 - Cookie-based language persistence
 - Fallback to English
-- Optional auto-translation via local LibreTranslate
+- Optional **100% offline** auto-translation
 
 ## Structure
 ```
@@ -15,7 +15,8 @@ scripts/lua/i18n.lp
 scripts/lua/locales/en.json
 scripts/lua/locales/es.json
 scripts/lua/locales/hi.json
-tools/translate.py
+tools/translate.py                  # Argos Translate (simple)
+tools/translate_ctranslate2.py      # CTranslate2 (lighter RAM)
 docs/libretranslate.md
 ```
 
@@ -24,10 +25,20 @@ docs/libretranslate.md
 <?=t("dashboard")?>
 ```
 
-## Auto-translation (optional, local)
-1. Run LibreTranslate locally (see `docs/libretranslate.md`)
-2. `python tools/translate.py`
+## Offline auto-translation (choose one)
+
+### Option A: Argos Translate (recommended for simplicity)
+```bash
+pip install argostranslate
+python tools/translate.py --install   # only once
+python tools/translate.py
+```
+
+### Option B: CTranslate2 (lower RAM, better for Raspberry Pi)
+1. Place quantized models in `models/en-es/` and `models/en-hi/`
+2. `pip install ctranslate2 sentencepiece`
+3. `python tools/translate_ctranslate2.py`
 
 This is a community proposal for https://github.com/pi-hole/pi-hole/issues/3123
 
-**Note:** English remains the source of truth. Machine translations should be reviewed before merging.
+**Note:** English remains the source of truth. Always review machine translations before merging.

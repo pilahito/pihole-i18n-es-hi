@@ -12,6 +12,7 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - **Automatic Docker detection**
 - **Pi-hole CLI wrapper** for Docker
 - Docker permissions diagnostic
+- **DNS-over-HTTPS (DoH) guide**
 
 ## Install (works on bare metal **and** Docker)
 
@@ -23,19 +24,15 @@ chmod +x install.sh check-docker-permissions.sh
 sudo ./install.sh
 ```
 
-If your Docker container is not named `pihole`:
+## DNS-over-HTTPS (DoH)
 
-```bash
-PIHOLE_CONTAINER=my-pihole sudo ./install.sh
-```
+See **[docs/dns-over-https.md](docs/dns-over-https.md)** for a complete guide using cloudflared.
 
 ## Docker permissions
 
 ```bash
 ./check-docker-permissions.sh
 ```
-
-See **[docs/docker-permissions.md](docs/docker-permissions.md)**.
 
 ## Use Pi-hole commands from the host (Docker)
 

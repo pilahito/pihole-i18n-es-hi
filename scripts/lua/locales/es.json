@@ -1,0 +1,13 @@
+{
+  "dashboard": "Tablero",
+  "settings": "Ajustes",
+  "query_log": "Registro de consultas",
+  "whitelist": "Lista blanca",
+  "blacklist": "Lista negra",
+  "status": "Estado",
+  "enable": "Activar",
+  "disable": "Desactivar",
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "language": "Idioma"
+}

@@ -11,13 +11,15 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - **Persistent mod installer** (survives Pi-hole updates)
 - **Automatic Docker detection**
 - **Pi-hole CLI wrapper** for Docker
+- Docker permissions diagnostic
 
 ## Install (works on bare metal **and** Docker)
 
 ```bash
 git clone https://github.com/pilahito/pihole-i18n-es-hi.git
 cd pihole-i18n-es-hi
-chmod +x install.sh
+chmod +x install.sh check-docker-permissions.sh
+./check-docker-permissions.sh
 sudo ./install.sh
 ```
 
@@ -27,24 +29,27 @@ If your Docker container is not named `pihole`:
 PIHOLE_CONTAINER=my-pihole sudo ./install.sh
 ```
 
+## Docker permissions
+
+```bash
+./check-docker-permissions.sh
+```
+
+See **[docs/docker-permissions.md](docs/docker-permissions.md)**.
+
 ## Use Pi-hole commands from the host (Docker)
 
 ```bash
 chmod +x pihole-docker
 ./pihole-docker -c
-./pihole-docker -g
 ./pihole-docker status
 ```
-
-Or create a permanent alias (see [docs/pihole-commands-docker.md](docs/pihole-commands-docker.md)).
 
 ## Update
 
 ```bash
 sudo ./update.sh
 ```
-
-See **[docs/docker.md](docs/docker.md)** for more details.
 
 ## Usage in templates
 ```lua

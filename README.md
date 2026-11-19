@@ -7,17 +7,19 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 - Lua helper (`t(key)` function)
 - Cookie-based language persistence
 - Fallback to English
-- Optional **100% offline** auto-translation
+- Multiple **100% offline** auto-translation options
 
 ## Structure
 ```
 scripts/lua/i18n.lp
-scripts/lua/locales/en.json
-scripts/lua/locales/es.json
-scripts/lua/locales/hi.json
-tools/translate.py                  # Argos Translate (simple)
-tools/translate_ctranslate2.py      # CTranslate2 (lighter RAM)
+scripts/lua/locales/{en,es,hi}.json
+tools/translate.py                  # Argos Translate
+tools/translate_ctranslate2.py      # CTranslate2 (int8)
+tools/install_argos.py
+docs/translation-options.md         # Comparison of all methods
+docs/ctranslate2-setup.md
 docs/libretranslate.md
+requirements.txt
 ```
 
 ## Usage in templates
@@ -25,19 +27,24 @@ docs/libretranslate.md
 <?=t("dashboard")?>
 ```
 
-## Offline auto-translation (choose one)
+## Offline auto-translation options
 
-### Option A: Argos Translate (recommended for simplicity)
+See **[docs/translation-options.md](docs/translation-options.md)** for a full comparison.
+
+### Quick start (Argos – simplest)
 ```bash
-pip install argostranslate
-python tools/translate.py --install   # only once
+pip install -r requirements.txt
+python tools/install_argos.py
 python tools/translate.py
 ```
 
-### Option B: CTranslate2 (lower RAM, better for Raspberry Pi)
-1. Place quantized models in `models/en-es/` and `models/en-hi/`
-2. `pip install ctranslate2 sentencepiece`
-3. `python tools/translate_ctranslate2.py`
+### Lowest RAM (CTranslate2)
+See [docs/ctranslate2-setup.md](docs/ctranslate2-setup.md)
+
+### LibreTranslate local
+See [docs/libretranslate.md](docs/libretranslate.md)
+
+---
 
 This is a community proposal for https://github.com/pi-hole/pi-hole/issues/3123
 

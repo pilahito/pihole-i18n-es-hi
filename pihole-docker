@@ -1,0 +1,22 @@
+#!/bin/bash
+# Wrapper so you can run Pi-hole commands from the host when Pi-hole is in Docker.
+# Usage: ./pihole-docker -c
+#        ./pihole-docker -g
+#        ./pihole-docker status
+#        etc.
+
+CONTAINER_NAME="${PIHOLE_CONTAINER:-pihole}"
+
+if ! command -v docker >/dev/null 2>&1; then
+  echo "Error: docker not found."
+  exit 1
+fi
+
+if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+  echo "Error: Container '$CONTAINER_NAME' is not running."
+  echo "Set PIHOLE_CONTAINER=your_name if needed."
+  exit 1
+fi
+
+# Pass all arguments to pihole inside the container
+docker exec -it "$CONTAINER_NAME" pihole "$@"

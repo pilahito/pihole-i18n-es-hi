@@ -26,13 +26,20 @@ PIHOLE_CONTAINER=my-pihole ./pihole-docker -c
 Add this to your `~/.bashrc` or `~/.zshrc`:
 
 ```bash
-alias pihole='docker exec -it pihole pihole'
+# Correct alias (avoids recursion)
+alias pihole='docker exec -it pihole command pihole'
 ```
 
 Or with a custom container name:
 
 ```bash
-alias pihole='docker exec -it my-pihole pihole'
+alias pihole='docker exec -it my-pihole command pihole'
+```
+
+Alternative (also safe):
+
+```bash
+alias pihole='docker exec -it pihole /usr/local/bin/pihole'
 ```
 
 Then reload:
@@ -58,4 +65,5 @@ docker exec -it pihole pihole -c
 ## Notes
 
 - The `-it` flags are needed for interactive commands (like `pihole -c`).
+- Using `command pihole` or the full path `/usr/local/bin/pihole` prevents alias recursion.
 - Works with all standard Pi-hole CLI commands.

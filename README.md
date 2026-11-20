@@ -4,9 +4,9 @@ Lightweight, maintainable internationalization system for the Pi-hole web interf
 
 ## Cobertura del español
 
- trae **618 cadenas**: el menú, los botones, los
+`scripts/lua/locales/es.json` trae **618 cadenas**: el menú, los botones, los
 estados y los ajustes del panel de Pi-hole v6 (extraídas de las plantillas
-). Las que falten se quedan en inglés (fallback).
+`.lp`). Las que falten se quedan en inglés (fallback).
 
 ## Features
 - JSON locale files (`en`, `es`, `hi`)
